@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
-  namespace: '${NAMESPACE@microservice-config}'
+  name: blog-graph-deployment
+  namespace: microservices-namespace
   labels:
-    app: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+    app: blog-graph-deployment
     moduleid: microservice-blog-graph-service
     version: 1.70.0-account-page-prod
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+      app: blog-graph-deployment
   template:
     metadata:
       labels:
-        app: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+        app: blog-graph-deployment
     spec:
       containers:
         -
@@ -24,25 +24,25 @@ spec:
           env:
             -
               name: ROUTE_GRAPH
-              value: '${ROUTE_GRAPH@microservice-blog-config}'
+              value: /blog/backend/graphql
             -
               name: ROUTE_EVENTS
-              value: '${ROUTE_EVENTS@microservice-blog-config}'
+              value: /blog/backend/events
             -
               name: INTERNAL_PORT_GRAPH
-              value: '${INTERNAL_PORT_GRAPH@microservice-blog-config}'
+              value: '4000'
             -
               name: INTERNAL_URL_ACCOUNT_GRAPH
-              value: '${INTERNAL_URL_GRAPH@microservice-account-config}'
+              value: 'http://account-graph-service.microservices-namespace:4000/graphql'
             -
               name: INTERNAL_HOST_CACHE
-              value: '${INTERNAL_HOST_CACHE@microservice-auth-config}'
+              value: auth-cache-service.microservices-namespace
             -
               name: INTERNAL_PORT_CACHE
-              value: '${INTERNAL_PORT_CACHE@microservice-auth-config}'
+              value: '6379'
             -
               name: SECRET_PASSWORD_CACHE
               value: SECRET_PASSWORD_CACHE
           ports:
             -
-              containerPort: '${INTERNAL_PORT_APP@microservice-blog-config}'
+              containerPort: 3000
