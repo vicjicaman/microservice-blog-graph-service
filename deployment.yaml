@@ -23,26 +23,27 @@ spec:
           image: 'repoflow/microservice-blog-graph-container:1.70.2-blog-home-prod'
           env:
             -
-              name: ROUTE_GRAPH
+              name: BLOG_ROUTE_GRAPH
               value: '${ROUTE_GRAPH@microservice-blog-config}'
             -
-              name: ROUTE_EVENTS
-              value: '${ROUTE_EVENTS@microservice-blog-config}'
-            -
-              name: INTERNAL_PORT_GRAPH
+              name: BLOG_INTERNAL_PORT_GRAPH
               value: '${INTERNAL_PORT_GRAPH@microservice-blog-config}'
             -
-              name: INTERNAL_URL_ACCOUNT_GRAPH
-              value: '${INTERNAL_URL_GRAPH@microservice-account-config}'
+              name: BLOG_DATA_INTERNAL_URL
+              value: '${INTERNAL_URL@microservice-data-config}/${DATABASE@microservice-blog-config}'
             -
-              name: INTERNAL_HOST_CACHE
+              name: AUTH_INTERNAL_HOST_CACHE
               value: '${INTERNAL_HOST_CACHE@microservice-auth-config}'
             -
-              name: INTERNAL_PORT_CACHE
+              name: AUTH_INTERNAL_PORT_CACHE
               value: '${INTERNAL_PORT_CACHE@microservice-auth-config}'
             -
-              name: SECRET_PASSWORD_CACHE
+              name: AUTH_SECRET_PASSWORD_CACHE
               value: SECRET_PASSWORD_CACHE
+            -
+              name: AUTH_ACCOUNT_INTERNAL_URL_GRAPH
+              value: '${INTERNAL_URL_GRAPH@microservice-account-config}'
+
           ports:
             -
-              containerPort: '${INTERNAL_PORT_APP@microservice-blog-config}'
+              containerPort: '${INTERNAL_PORT_GRAPH@microservice-blog-config}'

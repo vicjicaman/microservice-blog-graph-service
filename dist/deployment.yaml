@@ -23,26 +23,26 @@ spec:
           image: 'repoflow/microservice-blog-graph-container:1.70.2-blog-home-prod'
           env:
             -
-              name: ROUTE_GRAPH
+              name: BLOG_ROUTE_GRAPH
               value: /blog/backend/graphql
             -
-              name: ROUTE_EVENTS
-              value: /blog/backend/events
-            -
-              name: INTERNAL_PORT_GRAPH
+              name: BLOG_INTERNAL_PORT_GRAPH
               value: '4000'
             -
-              name: INTERNAL_URL_ACCOUNT_GRAPH
-              value: 'http://account-graph-service.microservices-namespace:4000/graphql'
+              name: BLOG_DATA_INTERNAL_URL
+              value: 'general-data-service.microservices-namespace:27017/blog'
             -
-              name: INTERNAL_HOST_CACHE
+              name: AUTH_INTERNAL_HOST_CACHE
               value: auth-cache-service.microservices-namespace
             -
-              name: INTERNAL_PORT_CACHE
+              name: AUTH_INTERNAL_PORT_CACHE
               value: '6379'
             -
-              name: SECRET_PASSWORD_CACHE
+              name: AUTH_SECRET_PASSWORD_CACHE
               value: SECRET_PASSWORD_CACHE
+            -
+              name: AUTH_ACCOUNT_INTERNAL_URL_GRAPH
+              value: 'http://account-graph-service.microservices-namespace:4000/graphql'
           ports:
             -
-              containerPort: 3000
+              containerPort: 4000
