@@ -6,7 +6,7 @@ metadata:
   labels:
     app: blog-graph-deployment
     moduleid: microservice-blog-graph-service
-    version: 1.70.4-blog-home-prod
+    version: 1.70.6-blog-home-prod
 spec:
   replicas: 2
   selector:
@@ -20,7 +20,7 @@ spec:
       containers:
         -
           name: app
-          image: 'repoflow/microservice-blog-graph-container:1.70.4-blog-home-prod'
+          image: 'repoflow/microservice-blog-graph-container:1.70.6-blog-home-prod'
           env:
             -
               name: BLOG_ROUTE_GRAPH
@@ -33,10 +33,10 @@ spec:
               value: 'general-data-service.microservices-namespace:27017/blog'
             -
               name: AUTH_INTERNAL_HOST_CACHE
-              value: auth-cache-service.microservices-namespace
+              value: '${INTERNAL_HOST_CACHE@microservice-auth-config}'
             -
               name: AUTH_INTERNAL_PORT_CACHE
-              value: '6379'
+              value: '${INTERNAL_PORT_CACHE@microservice-auth-config}'
             -
               name: AUTH_SECRET_PASSWORD_CACHE
               value: SECRET_PASSWORD_CACHE
