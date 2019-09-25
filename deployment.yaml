@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+  namespace: '${NAMESPACE@microservice-config}'
+  labels:
+    app: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+    moduleid: microservice-blog-graph-service
+    version: 1.70.0-master
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+  template:
+    metadata:
+      labels:
+        app: '${DEPLOYMENT_GRAPH@microservice-blog-config}'
+    spec:
+      containers:
+        -
+          name: app
+          image: 'repoflow/microservice-blog-graph-container:1.70.0-master'
+          env:
+            -
+              name: BLOG_ROUTE_GRAPH
+              value: '${ROUTE_GRAPH@microservice-blog-config}'
+            -
+              name: BLOG_INTERNAL_PORT_GRAPH
+              value: '${INTERNAL_PORT_GRAPH@microservice-blog-config}'
+            -
+              name: BLOG_DATA_INTERNAL_URL
+              value: '${INTERNAL_URL@microservice-data-config}/${DATABASE@microservice-blog-config}'
+            -
+              name: AUTH_INTERNAL_HOST_CACHE
+              value: '${INTERNAL_HOST_CACHE@microservice-auth-config}'
+            -
+              name: AUTH_INTERNAL_PORT_CACHE
+              value: '${INTERNAL_PORT_CACHE@microservice-auth-config}'
+            -
+              name: AUTH_SECRET_PASSWORD_CACHE
+              value: SECRET_PASSWORD_CACHE
+            -
+              name: AUTH_ACCOUNT_INTERNAL_URL_GRAPH
+              value: '${INTERNAL_URL_GRAPH@microservice-account-config}'
+          ports:
+            -
+              containerPort: '${INTERNAL_PORT_GRAPH@microservice-blog-config}'

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-graph-deployment
+  namespace: microservices-namespace
+  labels:
+    app: blog-graph-deployment
+    moduleid: microservice-blog-graph-service
+    version: 1.70.0-master
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: blog-graph-deployment
+  template:
+    metadata:
+      labels:
+        app: blog-graph-deployment
+    spec:
+      containers:
+        -
+          name: app
+          image: 'repoflow/microservice-blog-graph-container:1.70.0-master'
+          env:
+            -
+              name: BLOG_ROUTE_GRAPH
+              value: /blog/backend/graphql
+            -
+              name: BLOG_INTERNAL_PORT_GRAPH
+              value: '4000'
+            -
+              name: BLOG_DATA_INTERNAL_URL
+              value: 'general-data-service.microservices-namespace:27017/blog'
+            -
+              name: AUTH_INTERNAL_HOST_CACHE
+              value: '${INTERNAL_HOST_CACHE@microservice-auth-config}'
+            -
+              name: AUTH_INTERNAL_PORT_CACHE
+              value: '${INTERNAL_PORT_CACHE@microservice-auth-config}'
+            -
+              name: AUTH_SECRET_PASSWORD_CACHE
+              value: SECRET_PASSWORD_CACHE
+            -
+              name: AUTH_ACCOUNT_INTERNAL_URL_GRAPH
+              value: 'http://account-graph-service.microservices-namespace:4000/graphql'
+          ports:
+            -
+              containerPort: 4000
