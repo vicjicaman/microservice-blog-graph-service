@@ -14,11 +14,11 @@
     },
     "microservice-blog-config": {
       "url": "github.com:vicjicaman/microservice-blog-config.git",
-      "version": "1.70.4-blog-home-prod"
+      "version": "file:./../microservice-blog-config"
     },
     "microservice-data-config": {
       "url": "github.com:vicjicaman/microservice-data-config.git",
-      "version": "1.70.2-blog-home-prod"
+      "version": "file:./../microservice-data-config"
     }
   }
 }
